@@ -35,3 +35,12 @@ jobs:
           fi
 
           sed -i '/<\/body>/i <p>Updated by '"$ROLE"' on '"$(date)"'</p>' index.html
+
+
+      # Step 3: Update README
+      - name: Update README
+        env:
+          ACTOR: ${{ github.actor }}
+        run: |
+          echo "### Updated by $ACTOR on $(date '+%Y-%m-%d %H:%M:%S') [Commit: $(git rev-parse --short HEAD)]" >> README.md
+
