@@ -16,3 +16,22 @@ jobs:
       # Step 1: Checkout the repository
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      # Step 2: Update index.html
+      - name: Update HTML
+        env:
+          ACTOR: ${{ github.actor }}
+        run: |
+          echo "GitHub Actor: $ACTOR"
+
+          if [ "$ACTOR" = "hippydude2" ]; then
+            ROLE="Team Leader"
+          elif [ "$ACTOR" = "member1" ]; then
+            ROLE="Member 1"
+          elif [ "$ACTOR" = "member2" ]; then
+            ROLE="Member 2"
+          else
+            ROLE="Unknown Member"
+          fi
+
+          sed -i '/<\/body>/i <p>Updated by '"$ROLE"' on '"$(date)"'</p>' index.html
